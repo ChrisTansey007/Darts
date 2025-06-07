@@ -18,7 +18,11 @@ Darts is a simple example project built with [Next.js](https://nextjs.org). It c
    ```bash
    npm run dev
    ```
-3. Open <http://localhost:3000> in your browser.
+3. (Optional) Format the codebase:
+   ```bash
+   npm run format
+   ```
+4. Open <http://localhost:3000> in your browser.
 
 No additional environment variables are required for local development.
 
