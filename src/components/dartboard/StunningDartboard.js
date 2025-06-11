@@ -1,8 +1,8 @@
 'use client'
 import React, { useState, useEffect, Fragment } from 'react'
-import PlayerManagement from './PlayerManagement';
-import ScoreboardUI from './ScoreboardUI';
-import DartboardSVG from './DartboardSVG';
+import PlayerManagement from './PlayerManagement'
+import ScoreboardUI from './ScoreboardUI'
+import DartboardSVG from './DartboardSVG'
 
 // Main component for the Stunning Dartboard application
 const StunningDartboard = () => {
@@ -2106,6 +2106,7 @@ const StunningDartboard = () => {
           gameHistory={gameHistory}
           checkoutSuggestion={checkoutSuggestion}
           bogeyWarning={bogeyWarning}
+          selectedPlayers={selectedPlayers}
         />
       )}
       <DartboardSVG

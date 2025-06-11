@@ -23,6 +23,7 @@ const ScoreboardUI = ({
   gameHistory,
   checkoutSuggestion,
   bogeyWarning,
+  selectedPlayers,
 }) => (
         <>
           <div className="cricket-scoreboard">
