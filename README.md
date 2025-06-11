@@ -26,9 +26,10 @@ Darts is a simple example project built with [Next.js](https://nextjs.org). It c
 
 ## Running Tests
 
-Execute the Jest test suite:
+Install dependencies and execute the Jest test suite:
 
 ```bash
+npm install --legacy-peer-deps  # or `npm install` if your setup has no peer issues
 npm test
 ```
 
