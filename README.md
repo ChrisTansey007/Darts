@@ -28,6 +28,13 @@ No additional environment variables are required for local development.
 
 The application is deployed on Vercel: <https://darts.vercel.app>
 
+## Next.js Configuration
+
+This project uses the `/app` directory. To enable it and other runtime checks,
+`src/next.config.ts` sets `experimental.appDir` and `reactStrictMode` to `true`.
+Remote images are also allowed from `example.com` via the `images.domains`
+setting.
+
 ## Reference
 
 This project contains the original dartboard implementation at
