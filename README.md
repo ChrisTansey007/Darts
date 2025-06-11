@@ -24,6 +24,14 @@ Darts is a simple example project built with [Next.js](https://nextjs.org). It c
    ```
 4. Open <http://localhost:3000> in your browser.
 
+## Running Tests
+
+Execute the Jest test suite:
+
+```bash
+npm test
+```
+
 No additional environment variables are required for local development.
 
 The application is deployed on Vercel: <https://darts.vercel.app>
