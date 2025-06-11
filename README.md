@@ -37,6 +37,20 @@ No additional environment variables are required for local development.
 
 The application is deployed on Vercel: <https://darts.vercel.app>
 
+## Logging
+
+Use the `logger` utility for any runtime messages instead of calling
+`console.log` directly. Import it from `src/lib/logger`:
+
+```javascript
+import logger from '@/lib/logger'
+
+logger.info('Application started')
+```
+
+Debug output is suppressed when `NODE_ENV` is set to `production` so logs stay
+quiet in deployments. See `docs/server_logging.md` for backend logging tips.
+
 ## Next.js Configuration
 
 This project uses the `/app` directory. To enable it and other runtime checks,
