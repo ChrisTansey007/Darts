@@ -27,3 +27,9 @@ Darts is a simple example project built with [Next.js](https://nextjs.org). It c
 No additional environment variables are required for local development.
 
 The application is deployed on Vercel: <https://darts.vercel.app>
+
+## Reference
+
+This project contains the original dartboard implementation at
+`docs/mvp_code_reference.txt` for reference during refactoring. Contributors
+should consult this file if they need clarity on the initial logic.
