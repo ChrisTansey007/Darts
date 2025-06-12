@@ -470,6 +470,6 @@ const ScoreboardUI = ({
                 </div>
               </div>
             </div>
-)
+)}
 
 export default ScoreboardUI
