@@ -378,10 +378,10 @@ const ScoreboardUI = ({
                       </div>
                     </>
                   )}
-                </div>
               </div>
             </div>
-          )}
+          </div>
+      )}
 
           {['bobs_27', 'around_the_clock', 'shanghai'].includes(gameMode) && (
             <div className="generic-scoreboard">
@@ -470,6 +470,9 @@ const ScoreboardUI = ({
                 </div>
               </div>
             </div>
-)}
+          )}
+        </>
+      )
+
 
 export default ScoreboardUI
