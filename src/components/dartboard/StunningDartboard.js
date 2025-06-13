@@ -1340,7 +1340,8 @@ const StunningDartboard = () => {
       const wedgeStartAngle = -99
       const currentAngle = wedgeStartAngle + i * angleIncrement
       const nextAngle = currentAngle + angleIncrement
-      const isBlackWedge = i % 2 !== 0
+      // Start color alternating with black/red on the first wedge (20)
+      const isBlackWedge = i % 2 === 0
       const primaryColorClass = isBlackWedge ? 'color-b' : 'color-a'
       const ringColorClass = isBlackWedge ? 'color-r' : 'color-g'
 
