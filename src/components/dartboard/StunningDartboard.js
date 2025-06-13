@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import PlayerManagement from './PlayerManagement'
 import ScoreboardUI from './ScoreboardUI'
 import DartboardSVG from './DartboardSVG'
@@ -1007,7 +1007,7 @@ const StunningDartboard = () => {
   const setGameModeAndReset = (mode) => setGameMode(mode)
   useEffect(() => {
     resetGame()
-  }, [gameMode, selectedPlayers])
+  }, [gameMode, selectedPlayers, resetGame])
 
   const nextPlayer = (force = false) => {
     if (isGameWon() && !force) return
