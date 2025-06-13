@@ -26,6 +26,9 @@ const ScoreboardUI = ({
   checkoutSuggestion,
   bogeyWarning,
   selectedPlayers,
+  showBoard,
+  toggleBoardVisibility,
+  handleCricketNumberClick,
 }) => (
         <>
           <div className="cricket-scoreboard">
@@ -176,6 +179,9 @@ const ScoreboardUI = ({
                   >
                     BACK TURN
                   </button>
+                  <button className="control-btn" onClick={toggleBoardVisibility}>
+                    {showBoard ? 'HIDE BOARD' : 'SHOW BOARD'}
+                  </button>
                 </div>
               </div>
               <div className="last-dart-display">
@@ -216,7 +222,10 @@ const ScoreboardUI = ({
                 </div>
                 {cricketNumbers.concat(['bull']).map((num) => (
                   <Fragment key={num}>
-                    <div className="cricket-number">
+                    <div
+                      className="cricket-number"
+                      onClick={() => handleCricketNumberClick(num)}
+                    >
                       {num === 'bull' ? 'BULL' : num}
                     </div>
                     <div

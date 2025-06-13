@@ -32,6 +32,8 @@ const StunningDartboard = () => {
   const [activeGameSection, setActiveGameSection] = useState('standard')
   const [highlightedSegments, setHighlightedSegments] = useState([])
   const [bogeyWarning, setBogeyWarning] = useState('')
+  const [showBoard, setShowBoard] = useState(true)
+  const toggleBoardVisibility = () => setShowBoard((prev) => !prev)
 
   // Player management state
   const [players, setPlayers] = useState([
@@ -1186,6 +1188,10 @@ const StunningDartboard = () => {
     return winner
   }
 
+  const handleCricketNumberClick = (number) => {
+    handleDartThrow(`single-${number}`)
+  }
+
   const winner = useMemo(
     () => isGameWon(),
     [isGameWon, gameState, gameHistory, gameMode, selectedPlayers],
@@ -2054,18 +2060,22 @@ const StunningDartboard = () => {
           checkoutSuggestion={checkoutSuggestion}
           bogeyWarning={bogeyWarning}
           selectedPlayers={selectedPlayers}
+          showBoard={showBoard}
+          toggleBoardVisibility={toggleBoardVisibility}
+          handleCricketNumberClick={handleCricketNumberClick}
         />
       )}
-      {currentTab === 'game' && (
-        <DartboardSVG
-          center={center}
-          radii={radii}
-          generateSegments={generateSegments}
-          generateNumbers={generateNumbers}
-          handleDartThrow={handleDartThrow}
-          BullseyeGlowWrapper={BullseyeGlowWrapper}
-        />
-      )}
+      {currentTab === 'game' &&
+        showBoard && (
+          <DartboardSVG
+            center={center}
+            radii={radii}
+            generateSegments={generateSegments}
+            generateNumbers={generateNumbers}
+            handleDartThrow={handleDartThrow}
+            BullseyeGlowWrapper={BullseyeGlowWrapper}
+          />
+        )}
     </div>
   )
 }
