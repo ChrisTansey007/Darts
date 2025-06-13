@@ -1,5 +1,6 @@
 'use client'
 import React, { Fragment } from 'react'
+import GameSelectionIcon from './GameSelectionIcon'
 
 const ScoreboardUI = ({
   activeGameSection,
