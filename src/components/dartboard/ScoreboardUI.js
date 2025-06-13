@@ -10,7 +10,7 @@ const ScoreboardUI = ({
   practiceModes,
   gameMode,
   setGameModeAndReset,
-  isGameWon,
+  winner,
   KillerScoreboard,
   gameState,
   currentPlayer,
@@ -135,15 +135,15 @@ const ScoreboardUI = ({
             </div>
           </div>
 
-          {isGameWon() && (
+          {winner && (
             <div className="winner-display">
               <div className="winner-text">
                 🏆{' '}
-                {isGameWon() === 'Draw'
+                {winner === 'Draw'
                   ? 'GAME DRAWN!'
-                  : isGameWon() === 'Practice Over'
+                  : winner === 'Practice Over'
                     ? 'PRACTICE COMPLETE'
-                    : `${gameState[isGameWon().toLowerCase().replace(' ', '')].name} WINS!`}{' '}
+                    : `${gameState[winner.toLowerCase().replace(' ', '')].name} WINS!`}{' '}
                 🏆
               </div>
             </div>
@@ -354,7 +354,7 @@ const ScoreboardUI = ({
                       <div className="target-display">
                         Darts Remaining: {gameState.player1.dartsRemaining}
                       </div>
-                      {isGameWon() === 'Practice Over' && (
+                      {winner === 'Practice Over' && (
                         <div className="practice-summary">
                           <div className="practice-summary-stat">
                             T20s Hit: {gameState.player1.t20s}

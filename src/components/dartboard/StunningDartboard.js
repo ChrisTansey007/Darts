@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import PlayerManagement from './PlayerManagement'
 import ScoreboardUI from './ScoreboardUI'
 import DartboardSVG from './DartboardSVG'
@@ -1186,6 +1186,11 @@ const StunningDartboard = () => {
     return winner
   }
 
+  const winner = useMemo(
+    () => isGameWon(),
+    [isGameWon, gameState, gameHistory, gameMode, selectedPlayers],
+  )
+
   const handleTournamentPlayerSelect = (playerId) => {
     setTournamentPlayerSelection((prev) =>
       prev.includes(playerId)
@@ -2033,7 +2038,7 @@ const StunningDartboard = () => {
           practiceModes={practiceModes}
           gameMode={gameMode}
           setGameModeAndReset={setGameModeAndReset}
-          isGameWon={isGameWon}
+          winner={winner}
           KillerScoreboard={KillerScoreboard}
           gameState={gameState}
           currentPlayer={currentPlayer}
