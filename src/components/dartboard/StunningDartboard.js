@@ -2003,24 +2003,26 @@ const StunningDartboard = () => {
           )}
         </div>
       )}
-      <PlayerManagement
-        newPlayerName={newPlayerName}
-        setNewPlayerName={setNewPlayerName}
-        addPlayer={addPlayer}
-        players={players}
-        selectedPlayers={selectedPlayers}
-        selectPlayer={selectPlayer}
-        botOpponent={botOpponent}
-        setBotOpponent={setBotOpponent}
-        editingPlayer={editingPlayer}
-        setEditingPlayer={setEditingPlayer}
-        deletePlayer={deletePlayer}
-        updatePlayerName={updatePlayerName}
-        generateBarChartData={generateBarChartData}
-        generateRadarData={generateRadarData}
-        generateRadarGridPath={generateRadarGridPath}
-        generateRadarAxes={generateRadarAxes}
-      />
+      {currentTab === 'players' && (
+        <PlayerManagement
+          newPlayerName={newPlayerName}
+          setNewPlayerName={setNewPlayerName}
+          addPlayer={addPlayer}
+          players={players}
+          selectedPlayers={selectedPlayers}
+          selectPlayer={selectPlayer}
+          botOpponent={botOpponent}
+          setBotOpponent={setBotOpponent}
+          editingPlayer={editingPlayer}
+          setEditingPlayer={setEditingPlayer}
+          deletePlayer={deletePlayer}
+          updatePlayerName={updatePlayerName}
+          generateBarChartData={generateBarChartData}
+          generateRadarData={generateRadarData}
+          generateRadarGridPath={generateRadarGridPath}
+          generateRadarAxes={generateRadarAxes}
+        />
+      )}
       {currentTab === 'game' && (
         <ScoreboardUI
           activeGameSection={activeGameSection}
@@ -2048,14 +2050,16 @@ const StunningDartboard = () => {
           selectedPlayers={selectedPlayers}
         />
       )}
-      <DartboardSVG
-        center={center}
-        radii={radii}
-        generateSegments={generateSegments}
-        generateNumbers={generateNumbers}
-        handleDartThrow={handleDartThrow}
-        BullseyeGlowWrapper={BullseyeGlowWrapper}
-      />
+      {currentTab === 'game' && (
+        <DartboardSVG
+          center={center}
+          radii={radii}
+          generateSegments={generateSegments}
+          generateNumbers={generateNumbers}
+          handleDartThrow={handleDartThrow}
+          BullseyeGlowWrapper={BullseyeGlowWrapper}
+        />
+      )}
     </div>
   )
 }
