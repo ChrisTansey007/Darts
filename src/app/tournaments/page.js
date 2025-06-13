@@ -1,5 +1,5 @@
-import TournamentsFeature from '@/components/tournaments/TournamentsFeature'
+// import TournamentsFeature from '@/components/tournaments/TournamentsFeature'
 
 export default function TournamentsPage() {
-  return <TournamentsFeature />
+  return <div className="p-4">Tournaments page placeholder</div>
 }

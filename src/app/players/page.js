@@ -1,5 +1,5 @@
-import PlayersFeature from '@/components/players/PlayersFeature'
+// import PlayersFeature from '@/components/players/PlayersFeature'
 
 export default function PlayersPage() {
-  return <PlayersFeature />
+  return <div className="p-4">Players page placeholder</div>
 }
