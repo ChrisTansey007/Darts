@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import PlayerManagement from './PlayerManagement'
 import ScoreboardUI from './ScoreboardUI'
 import DartboardSVG from './DartboardSVG'
@@ -885,7 +885,7 @@ const StunningDartboard = () => {
     }
   }
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     let initialScore = 0
     if (['301', '501', '701'].includes(gameMode))
       initialScore = parseInt(gameMode)
@@ -941,7 +941,7 @@ const StunningDartboard = () => {
       setHighlightedSegments([])
       setBogeyWarning('')
     }
-  }
+  }, [gameMode, selectedPlayers])
 
   const undoLastDart = () => {
     if (gameHistory.length === 0) return
