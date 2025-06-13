@@ -8,5 +8,6 @@ describe('StunningDartboard', () => {
       screen.getByRole('heading', { name: /precision dartboard/i })
     ).toBeInTheDocument();
     expect(document.querySelector('.dartboard-component')).toBeInTheDocument();
+    expect(document.querySelector('.winner-display')).not.toBeInTheDocument();
   });
 });
