@@ -34,6 +34,7 @@ const ScoreboardUI = ({
   turnTotal,
   setTurnTotal,
   handleTurnTotalSubmit,
+  dartboardOverlay,
 }) => (
   <>
     <div className="cricket-scoreboard">
@@ -160,7 +161,12 @@ const ScoreboardUI = ({
     {gameMode === 'killer' && <KillerScoreboard />}
 
     {gameMode === 'cricket' && (
-      <div className="cricket-scoreboard">
+      <div className="cricket-scoreboard relative">
+        {showBoard && (
+          <div className="dartboard-overlay absolute inset-0">
+            {dartboardOverlay}
+          </div>
+        )}
         <div className="cricket-header">
           <h2 className="cricket-title">CRICKET SCOREBOARD</h2>
           <div className="game-controls">

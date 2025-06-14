@@ -2,12 +2,12 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import StunningDartboard from '../StunningDartboard'
 
 describe('StunningDartboard', () => {
-  it('renders heading and dartboard container', () => {
+  it('renders heading', () => {
     render(<StunningDartboard />)
     expect(
       screen.getByRole('heading', { name: /precision dartboard/i }),
     ).toBeInTheDocument()
-    expect(document.querySelector('.dartboard-component')).toBeInTheDocument()
+    expect(document.querySelector('.dartboard-component')).not.toBeInTheDocument()
     expect(document.querySelector('.winner-display')).not.toBeInTheDocument()
   })
 
@@ -15,7 +15,10 @@ describe('StunningDartboard', () => {
     render(<StunningDartboard />)
     fireEvent.click(screen.getByRole('button', { name: 'Cricket' }))
     const toggleBtn = screen.getByRole('button', { name: /hide board/i })
-    expect(document.querySelector('svg.dartboard-svg')).toBeInTheDocument()
+    const scoreboard = screen
+      .getByText(/cricket scoreboard/i)
+      .closest('.cricket-scoreboard')
+    expect(scoreboard.querySelector('svg.dartboard-svg')).toBeInTheDocument()
     fireEvent.click(toggleBtn)
     expect(document.querySelector('svg.dartboard-svg')).not.toBeInTheDocument()
     expect(
