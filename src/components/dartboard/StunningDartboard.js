@@ -34,6 +34,8 @@ const StunningDartboard = () => {
   const [bogeyWarning, setBogeyWarning] = useState('')
   const [showBoard, setShowBoard] = useState(true)
   const toggleBoardVisibility = () => setShowBoard((prev) => !prev)
+  const [showTotalInput, setShowTotalInput] = useState(false)
+  const [turnTotal, setTurnTotal] = useState(0)
 
   // Player management state
   const [players, setPlayers] = useState([
@@ -887,6 +889,87 @@ const StunningDartboard = () => {
     }
   }
 
+  const handleTurnTotalSubmit = (total) => {
+    if (!['301', '501', '701'].includes(gameMode)) return
+    const playerKey = currentPlayer === 1 ? 'player1' : 'player2'
+    const activePlayer =
+      currentPlayer === 1 ? selectedPlayers.player1 : selectedPlayers.player2
+
+    setGameHistory((prev) => [
+      ...prev.slice(-4),
+      {
+        gameState: JSON.parse(JSON.stringify(gameState)),
+        currentPlayer,
+        dartCount,
+        turnStartScore,
+        turnScores: [...turnScores],
+        timestamp: Date.now(),
+      },
+    ])
+
+    const startingScore = gameState[playerKey].score
+    let newScore = startingScore - total
+    const isCheckoutAttempt =
+      turnStartScore[playerKey] <= 170 &&
+      ![169, 168, 166, 165, 163, 162, 159].includes(turnStartScore[playerKey])
+
+    const updatedGameState = JSON.parse(JSON.stringify(gameState))
+
+    if (newScore < 0 || newScore === 1) {
+      updatedGameState[playerKey].score = turnStartScore[playerKey]
+      if (activePlayer && activePlayer.id !== 'bot' && isCheckoutAttempt) {
+        updatePlayerStats(activePlayer.id, {
+          checkoutAttempts: activePlayer.stats.checkoutAttempts + 1,
+        })
+      }
+      setLastDart('BUST!')
+      newScore = turnStartScore[playerKey]
+    } else {
+      updatedGameState[playerKey].score = newScore
+      if (activePlayer && activePlayer.id !== 'bot') {
+        const newTotalScore = activePlayer.stats.totalScore + total
+        const newTotalDarts = activePlayer.stats.totalDarts + 3
+        const statUpdates = {
+          totalScore: newTotalScore,
+          totalDarts: newTotalDarts,
+          threeDartAverage: (newTotalScore / newTotalDarts) * 3,
+        }
+        if (total > activePlayer.stats.highestScore)
+          statUpdates.highestScore = total
+        if (total === 180)
+          statUpdates.total180s = activePlayer.stats.total180s + 1
+        if (newScore === 0) {
+          statUpdates.highestFinish = startingScore
+          if (isCheckoutAttempt) {
+            statUpdates.checkoutHits = activePlayer.stats.checkoutHits + 1
+            statUpdates.checkoutAttempts =
+              activePlayer.stats.checkoutAttempts + 1
+          }
+        } else if (isCheckoutAttempt) {
+          statUpdates.checkoutAttempts = activePlayer.stats.checkoutAttempts + 1
+        }
+        updatePlayerStats(activePlayer.id, statUpdates)
+      }
+    }
+
+    setGameState(updatedGameState)
+    updateCheckoutVisuals(newScore)
+
+    const nextP = currentPlayer === 1 ? 2 : 1
+    const nextKey = nextP === 1 ? 'player1' : 'player2'
+
+    setCurrentPlayer(nextP)
+    setDartCount(1)
+    setTurnScores([])
+    setLastDart('')
+
+    setTurnStartScore((s) => ({
+      ...s,
+      [nextKey]: updatedGameState[nextKey].score,
+    }))
+    updateCheckoutVisuals(updatedGameState[nextKey].score)
+  }
+
   const resetGame = useCallback(() => {
     let initialScore = 0
     if (['301', '501', '701'].includes(gameMode))
@@ -1641,7 +1724,6 @@ const StunningDartboard = () => {
     setActiveGameSection((prev) => (prev === section ? null : section))
   }
 
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 relative bg-gray-900">
       <style>{`
@@ -2063,19 +2145,23 @@ const StunningDartboard = () => {
           showBoard={showBoard}
           toggleBoardVisibility={toggleBoardVisibility}
           handleCricketNumberClick={handleCricketNumberClick}
+          showTotalInput={showTotalInput}
+          setShowTotalInput={setShowTotalInput}
+          turnTotal={turnTotal}
+          setTurnTotal={setTurnTotal}
+          handleTurnTotalSubmit={handleTurnTotalSubmit}
         />
       )}
-      {currentTab === 'game' &&
-        showBoard && (
-          <DartboardSVG
-            center={center}
-            radii={radii}
-            generateSegments={generateSegments}
-            generateNumbers={generateNumbers}
-            handleDartThrow={handleDartThrow}
-            BullseyeGlowWrapper={BullseyeGlowWrapper}
-          />
-        )}
+      {currentTab === 'game' && showBoard && (
+        <DartboardSVG
+          center={center}
+          radii={radii}
+          generateSegments={generateSegments}
+          generateNumbers={generateNumbers}
+          handleDartThrow={handleDartThrow}
+          BullseyeGlowWrapper={BullseyeGlowWrapper}
+        />
+      )}
     </div>
   )
 }
