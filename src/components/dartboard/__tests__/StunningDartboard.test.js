@@ -7,7 +7,9 @@ describe('StunningDartboard', () => {
     expect(
       screen.getByRole('heading', { name: /precision dartboard/i }),
     ).toBeInTheDocument()
-    expect(document.querySelector('.dartboard-component')).not.toBeInTheDocument()
+    expect(
+      document.querySelector('.dartboard-component'),
+    ).not.toBeInTheDocument()
     expect(document.querySelector('.winner-display')).not.toBeInTheDocument()
   })
 
@@ -28,11 +30,11 @@ describe('StunningDartboard', () => {
     render(<StunningDartboard />)
     fireEvent.click(screen.getByRole('button', { name: 'Cricket' }))
     const markCell = document.querySelectorAll('.marks-display')[0]
-    expect(markCell.textContent).toBe('')
+    expect(markCell.querySelectorAll('.cricket-dot.hit-1').length).toBe(0)
     const numberCell = document.querySelectorAll('.cricket-number')[1]
     fireEvent.click(numberCell)
     const updatedMark = document.querySelectorAll('.marks-display')[0]
-    expect(updatedMark.textContent).toBe('/')
+    expect(updatedMark.querySelectorAll('.cricket-dot.hit-1').length).toBe(1)
   })
 
   it('applies turn total and advances player', () => {

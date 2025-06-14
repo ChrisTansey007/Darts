@@ -1139,13 +1139,16 @@ const StunningDartboard = () => {
     }
   }
 
-  const getMarkDisplay = (marks) => {
-    if (marks === 0) return ''
-    if (marks === 1) return '/'
-    if (marks === 2) return 'X'
-    if (marks === 3) return '⚡'
-    return ''
-  }
+  const getMarkDisplay = (marks) => (
+    <div className="marks-row">
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className={`cricket-dot ${marks > i ? `hit-${Math.min(marks, 3)}` : ''}`}
+        ></span>
+      ))}
+    </div>
+  )
 
   const isGameWon = () => {
     let winner = null
