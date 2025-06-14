@@ -5,7 +5,7 @@ import ScoreboardUI from './ScoreboardUI'
 import DartboardSVG from './DartboardSVG'
 
 // Main component for the Stunning Dartboard application
-const StunningDartboard = () => {
+const StunningDartboard = ({ onScore }) => {
   // State for hover effects on the dartboard
   const [hoverScore, setHoverScore] = useState('')
   const [isScoreActive, setIsScoreActive] = useState(false)
@@ -643,6 +643,8 @@ const StunningDartboard = () => {
       number = parseInt(parts[1])
       points = number * multiplier
     }
+
+    if (onScore) onScore(points)
 
     const updatedTurnScores = [...turnScores, points]
     setTurnScores(updatedTurnScores)
