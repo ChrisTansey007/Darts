@@ -7,6 +7,7 @@ const DartboardSVG = ({
   generateNumbers,
   handleDartThrow,
   BullseyeGlowWrapper,
+  highlightedSegments = [],
 }) => (
   <div className="dartboard-component">
     <div className="dartboard-glow"></div>
@@ -114,13 +115,13 @@ const DartboardSVG = ({
           </filter>
         </defs>
         <g transform="translate(50, 50)">
-          {generateSegments()}
+          {generateSegments(highlightedSegments)}
           <BullseyeGlowWrapper>
             <circle
               cx={center}
               cy={center}
               r={radii.bullOuter}
-              className="segment color-g"
+              className={`segment color-g ${highlightedSegments.includes('single-bull') ? 'active-segment' : ''}`}
               data-score="single-bull"
               onClick={() => handleDartThrow('single-bull')}
             />
@@ -130,7 +131,7 @@ const DartboardSVG = ({
               cx={center}
               cy={center}
               r={radii.bullInner}
-              className="segment color-r"
+              className={`segment color-r ${highlightedSegments.includes('double-bull') ? 'active-segment' : ''}`}
               data-score="double-bull"
               onClick={() => handleDartThrow('double-bull')}
             />

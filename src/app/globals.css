@@ -79,3 +79,4 @@ body {
 .cricket-dot.hit-1 { background: #facc15; }
 .cricket-dot.hit-2,
 .cricket-dot.hit-3 { background: #22c55e; }
+.active-segment { filter: drop-shadow(0 0 8px #fcd34d); }

@@ -1377,6 +1377,7 @@ const StunningDartboard = () => {
 
   const handleMouseOver = (e, score) => {
     if (score) {
+      e.target.classList.add('active-segment')
       const formattedScore = formatScore(score)
       setHoverScore(formattedScore)
       setIsScoreActive(true)
@@ -1404,6 +1405,7 @@ const StunningDartboard = () => {
 
   const handleMouseOut = (e) => {
     setHoverScore('')
+    e.target.classList.remove('active-segment')
     e.target.classList.remove('glow-bust-warning')
   }
   const createSegmentPath = (
@@ -1426,7 +1428,7 @@ const StunningDartboard = () => {
     return `M ${x1} ${y1} L ${x2} ${y2} A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${x3} ${y3} L ${x4} ${y4} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x1} ${y1} Z`
   }
 
-  const generateSegments = () => {
+  const generateSegments = (highlightList = highlightedSegments) => {
     const segments = []
     const isX01Game = ['301', '501', '701'].includes(gameMode)
 
@@ -1470,8 +1472,9 @@ const StunningDartboard = () => {
         const segmentId = seg.name.replace('-outer', '').replace('-inner', '')
         let combinedClasses = `segment ${seg.color}`
 
-        const highlightIndex = highlightedSegments.indexOf(segmentId)
+        const highlightIndex = highlightList.indexOf(segmentId)
         if (highlightIndex !== -1) {
+          combinedClasses += ' active-segment'
           if (isX01Game) {
             combinedClasses += ` x01-checkout-target glow-suggested-${highlightIndex + 1}`
           } else if (gameMode === 'cricket') {
@@ -1709,8 +1712,11 @@ const StunningDartboard = () => {
     }
 
     const highlightIndex = highlightedSegments.indexOf(segmentId)
-    if (highlightIndex !== -1 && isX01Game) {
-      combinedClasses += ` x01-checkout-target glow-suggested-${highlightIndex + 1}`
+    if (highlightIndex !== -1) {
+      combinedClasses += ' active-segment'
+      if (isX01Game) {
+        combinedClasses += ` x01-checkout-target glow-suggested-${highlightIndex + 1}`
+      }
     }
 
     return React.cloneElement(children, {
@@ -2178,6 +2184,7 @@ const StunningDartboard = () => {
               generateNumbers={generateNumbers}
               handleDartThrow={handleDartThrow}
               BullseyeGlowWrapper={BullseyeGlowWrapper}
+              highlightedSegments={highlightedSegments}
             />
           }
         />
