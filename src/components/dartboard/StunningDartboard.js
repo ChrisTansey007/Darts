@@ -1774,6 +1774,8 @@ const StunningDartboard = () => {
         .dartboard-glow { position: absolute; top: 50%; left: 50%; width: 120%; height: 120%; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%); transform: translate(-50%, -50%); animation: pulse 4s ease-in-out infinite; pointer-events: none; z-index: -1; }
         @keyframes pulse { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } }
         .cricket-scoreboard, .generic-scoreboard { background: rgba(15,15,35,0.95); backdrop-filter: blur(20px); border: 1px solid rgba(99,102,241,0.3); border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,102,241,0.1), inset 0 1px 0 rgba(255,255,255,0.1); padding: 1.5rem; margin-bottom: 2rem; max-width: 800px; width: 100%; }
+        /* stretch the cricket scoreboard vertically */
+        .cricket-scoreboard { transform: scaleY(1.3); transform-origin: top; }
         .cricket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
         .cricket-title, .comparison-title, .game-selection-title { font-family: 'Orbitron', monospace; font-weight: 700; font-size: clamp(18px, 4vw, 24px); background: linear-gradient(135deg, #06b6d4, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .game-controls { display: flex; gap: 0.75rem; flex-wrap: wrap; }
