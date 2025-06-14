@@ -1779,6 +1779,20 @@ const StunningDartboard = () => {
 
         .cricket-scoreboard { /* removed scale transform to keep default size */ min-height: 36rem; }
 
+        .dartboard-card {
+          background: rgba(15,15,35,0.95);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(99,102,241,0.3);
+          border-radius: 24px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,102,241,0.1), inset 0 1px 0 rgba(255,255,255,0.1);
+          padding: 1.5rem;
+          margin-bottom: 2rem;
+          max-width: 800px;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
         .cricket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
         .cricket-title, .comparison-title, .game-selection-title { font-family: 'Orbitron', monospace; font-weight: 700; font-size: clamp(18px, 4vw, 24px); background: linear-gradient(135deg, #06b6d4, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .game-controls { display: flex; gap: 0.75rem; flex-wrap: wrap; }

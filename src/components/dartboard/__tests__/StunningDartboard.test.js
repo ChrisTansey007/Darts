@@ -15,12 +15,10 @@ describe('StunningDartboard', () => {
     render(<StunningDartboard />)
     fireEvent.click(screen.getByRole('button', { name: 'Cricket' }))
     const toggleBtn = screen.getByRole('button', { name: /hide board/i })
-    const scoreboard = screen
-      .getByText(/cricket scoreboard/i)
-      .closest('.cricket-scoreboard')
-    expect(scoreboard.querySelector('svg.dartboard-svg')).toBeInTheDocument()
+    const boardCard = document.querySelector('.dartboard-card')
+    expect(boardCard.querySelector('svg.dartboard-svg')).toBeInTheDocument()
     fireEvent.click(toggleBtn)
-    expect(document.querySelector('svg.dartboard-svg')).not.toBeInTheDocument()
+    expect(document.querySelector('.dartboard-card')).not.toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: /show board/i }),
     ).toBeInTheDocument()
