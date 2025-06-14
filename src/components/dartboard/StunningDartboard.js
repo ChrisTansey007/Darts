@@ -1754,7 +1754,13 @@ const StunningDartboard = ({ onScore }) => {
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.1), transparent), radial-gradient(2px 2px at 40px 70px, rgba(139,92,246,0.2), transparent), radial-gradient(1px 1px at 90px 40px, rgba(99,102,241,0.3), transparent), radial-gradient(1px 1px at 130px 80px, rgba(6,182,212,0.2), transparent); background-repeat: repeat; background-size: 200px 150px; animation: sparkle 8s ease-in-out infinite alternate; pointer-events: none; z-index: -1; }
         @keyframes sparkle { 0% { opacity: 0.3; transform: scale(1) rotate(0deg); } 100% { opacity: 0.8; transform: scale(1.1) rotate(360deg); } }
         .dartboard-component { width: 95vw; max-width: 650px; aspect-ratio: 1 / 1; position: relative; margin: 2rem auto; filter: drop-shadow(0 25px 50px rgba(99,102,241,0.3)); }
-        .dartboard-svg-container { width: 100%; height: 100%; position: relative; }
+        .dartboard-svg-container {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-origin: center;
+          touch-action: none;
+        }
         .dartboard-svg { width: 100%; height: 100%; }
         .dartboard-overlay { width: 100%; height: 100%; pointer-events: auto; }
         .segment { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; cursor: pointer; stroke-linejoin: round; }

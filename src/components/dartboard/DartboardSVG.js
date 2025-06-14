@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 
 const DartboardSVG = ({
   center,
@@ -8,11 +8,47 @@ const DartboardSVG = ({
   handleDartThrow,
   BullseyeGlowWrapper,
   highlightedSegments = [],
-}) => (
-  <div className="dartboard-component">
-    <div className="dartboard-glow"></div>
-    <div className="dartboard-svg-container">
-      <svg className="dartboard-svg" viewBox="0 0 500 500">
+}) => {
+  const [zoom, setZoom] = useState(1)
+  const pinchState = useRef(null)
+
+  const distance = (t1, t2) =>
+    Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY)
+
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 2) {
+      pinchState.current = {
+        dist: distance(e.touches[0], e.touches[1]),
+        zoom,
+      }
+    }
+  }
+
+  const handleTouchMove = (e) => {
+    if (pinchState.current && e.touches.length === 2) {
+      const newDist = distance(e.touches[0], e.touches[1])
+      let nextZoom =
+        pinchState.current.zoom * (newDist / pinchState.current.dist)
+      nextZoom = Math.min(Math.max(nextZoom, 0.5), 3)
+      setZoom(nextZoom)
+    }
+  }
+
+  const handleTouchEnd = () => {
+    pinchState.current = null
+  }
+
+  return (
+    <div className="dartboard-component">
+      <div className="dartboard-glow"></div>
+      <div
+        className="dartboard-svg-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ transform: `scale(${zoom})` }}
+      >
+        <svg className="dartboard-svg" viewBox="0 0 500 500">
         <defs>
           <radialGradient id="gradient-a" cx="50%" cy="50%" r="50%">
             <stop offset="0%" style={{ stopColor: '#f4e7a8' }} />
@@ -141,6 +177,7 @@ const DartboardSVG = ({
       </svg>
     </div>
   </div>
-)
+ )
+}
 
 export default DartboardSVG
