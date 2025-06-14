@@ -37,7 +37,7 @@ const ScoreboardUI = ({
   dartboardOverlay,
 }) => (
   <>
-    <div className="cricket-scoreboard">
+    <div className="cricket-scoreboard game-selection-card">
       <div className="cricket-header">
         <h2 className="game-selection-title">GAME SELECTION</h2>
       </div>
