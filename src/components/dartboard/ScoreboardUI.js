@@ -161,18 +161,15 @@ const ScoreboardUI = ({
     {gameMode === 'killer' && <KillerScoreboard />}
 
     {gameMode === 'cricket' && (
-      <div className="cricket-scoreboard relative">
-        {showBoard && (
-          <div className="dartboard-overlay absolute inset-0">
-            {dartboardOverlay}
-          </div>
-        )}
-        <div className="cricket-header">
-          <h2 className="cricket-title">CRICKET SCOREBOARD</h2>
-          <div className="game-controls">
-            <button className="control-btn" onClick={resetGame}>
-              RESET
-            </button>
+      <>
+        {showBoard && <div className="dartboard-card">{dartboardOverlay}</div>}
+        <div className="cricket-scoreboard">
+          <div className="cricket-header">
+            <h2 className="cricket-title">CRICKET SCOREBOARD</h2>
+            <div className="game-controls">
+              <button className="control-btn" onClick={resetGame}>
+                RESET
+              </button>
             <button className="control-btn" onClick={() => nextPlayer()}>
               NEXT PLAYER
             </button>
@@ -251,8 +248,8 @@ const ScoreboardUI = ({
           ))}
         </div>
       </div>
+    </>
     )}
-
     {['301', '501', '701'].includes(gameMode) && (
       <div className="cricket-scoreboard">
         <div className="cricket-header">
