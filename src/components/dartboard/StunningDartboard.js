@@ -1745,6 +1745,7 @@ const StunningDartboard = () => {
         .dartboard-component { width: 95vw; max-width: 650px; aspect-ratio: 1 / 1; position: relative; margin: 2rem auto; filter: drop-shadow(0 25px 50px rgba(99,102,241,0.3)); }
         .dartboard-svg-container { width: 100%; height: 100%; position: relative; }
         .dartboard-svg { width: 100%; height: 100%; }
+        .dartboard-overlay { width: 100%; height: 100%; pointer-events: auto; }
         .segment { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; cursor: pointer; stroke-linejoin: round; }
         .segment:hover:not(.x01-checkout-target) { filter: brightness(1.6) saturate(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.5)); transform: scale(1.02); }
         .color-a { fill: url(#gradient-a); stroke: #d4bc3c; } .color-b { fill: url(#gradient-b); stroke: #2a2a2a; } .color-g { fill: url(#gradient-g); stroke: #15803d; } .color-r { fill: url(#gradient-r); stroke: #b91c1c; }
@@ -2150,16 +2151,16 @@ const StunningDartboard = () => {
           turnTotal={turnTotal}
           setTurnTotal={setTurnTotal}
           handleTurnTotalSubmit={handleTurnTotalSubmit}
-        />
-      )}
-      {currentTab === 'game' && showBoard && (
-        <DartboardSVG
-          center={center}
-          radii={radii}
-          generateSegments={generateSegments}
-          generateNumbers={generateNumbers}
-          handleDartThrow={handleDartThrow}
-          BullseyeGlowWrapper={BullseyeGlowWrapper}
+          dartboardOverlay={
+            <DartboardSVG
+              center={center}
+              radii={radii}
+              generateSegments={generateSegments}
+              generateNumbers={generateNumbers}
+              handleDartThrow={handleDartThrow}
+              BullseyeGlowWrapper={BullseyeGlowWrapper}
+            />
+          }
         />
       )}
     </div>
