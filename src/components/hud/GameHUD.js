@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import StunningDartboard from '../dartboard/StunningDartboard'
 import ScoreOverlay from './ScoreOverlay'
 
@@ -9,9 +9,39 @@ function GameTypePill({ gameType, visible }) {
   )
 }
 
-function Panel({ player, collapsed, side }) {
+function Panel({
+  player,
+  collapsed,
+  side,
+  onSwipe,
+}) {
+  const touchStart = useRef(null)
+
+  const handleTouchStart = (e) => {
+    const t = e.touches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY }
+  }
+
+  const handleTouchEnd = (e) => {
+    if (!touchStart.current) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touchStart.current.x
+    const dy = t.clientY - touchStart.current.y
+    const absX = Math.abs(dx)
+    const absY = Math.abs(dy)
+    if (Math.max(absX, absY) < 30) return
+    let dir
+    if (absX > absY) dir = dx > 0 ? 'right' : 'left'
+    else dir = dy > 0 ? 'down' : 'up'
+    onSwipe?.(dir, side)
+  }
+
   return (
-    <div className={`hud-side ${side} ${collapsed ? 'collapsed' : ''}`}>
+    <div
+      className={`hud-side ${side} ${collapsed ? 'collapsed' : ''}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="player-name">{player.name}</div>
       <div className="player-score">{player.score}</div>
       <div className="marks-row">
@@ -37,6 +67,8 @@ export default function GameHUD() {
   const [gameType, setGameType] = useState('501')
   const [showGameType, setShowGameType] = useState(false)
   const [overlay, setOverlay] = useState(null)
+  const [collapsedLeft, setCollapsedLeft] = useState(false)
+  const [collapsedRight, setCollapsedRight] = useState(false)
 
   const gameTypes = ['501', 'Cricket']
 
@@ -46,6 +78,20 @@ export default function GameHUD() {
     setGameType(next)
     setShowGameType(true)
     setTimeout(() => setShowGameType(false), 1200)
+  }
+
+  const handlePanelSwipe = (direction, side) => {
+    if (direction === 'up' || direction === 'down') {
+      cycleGameType()
+      return
+    }
+    if (side === 'left') {
+      if (direction === 'left') setCollapsedLeft(true)
+      if (direction === 'right') setCollapsedLeft(false)
+    } else if (side === 'right') {
+      if (direction === 'right') setCollapsedRight(true)
+      if (direction === 'left') setCollapsedRight(false)
+    }
   }
 
   const handleScore = (points) => {
@@ -64,8 +110,9 @@ export default function GameHUD() {
       </div>
       <Panel
         player={players[0]}
-        collapsed={currentPlayer !== 1}
+        collapsed={currentPlayer !== 1 || collapsedLeft}
         side="left"
+        onSwipe={handlePanelSwipe}
       />
       <div className="hud-board">
         <StunningDartboard onScore={handleScore} />
@@ -74,8 +121,9 @@ export default function GameHUD() {
       </div>
       <Panel
         player={players[1]}
-        collapsed={currentPlayer !== 2}
+        collapsed={currentPlayer !== 2 || collapsedRight}
         side="right"
+        onSwipe={handlePanelSwipe}
       />
       <div className="hud-bottom">
         <button aria-label="Undo">Undo</button>
