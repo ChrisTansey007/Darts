@@ -1,11 +1,11 @@
 'use client'
 
-import StunningDartboard from '../dartboard/StunningDartboard'
+import GameHUD from '../hud/GameHUD'
 
 export default function GameFeature() {
   return (
     <div className="p-4">
-      <StunningDartboard />
+      <GameHUD />
     </div>
   )
 }
