@@ -46,8 +46,12 @@ body {
   background: rgba(15, 15, 35, 0.6);
   backdrop-filter: blur(10px);
 }
-.hud-top-bar { top: 0; }
-.hud-bottom { bottom: 0; }
+.hud-top-bar {
+  top: 0;
+}
+.hud-bottom {
+  bottom: 0;
+}
 .hud-board {
   width: 65vw;
   height: 65vh;
@@ -69,14 +73,41 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: width 0.3s ease, opacity 0.3s ease;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
 }
-.hud-side.left { left: 0; }
-.hud-side.right { right: 0; }
-.hud-side.collapsed { width: 60px; opacity: 0.7; }
-.marks-row { display: flex; gap: 4px; margin-top: 4px; }
-.cricket-dot { width: 10px; height: 10px; border-radius: 50%; background: white; }
-.cricket-dot.hit-1 { background: #facc15; }
-.cricket-dot.hit-2,
-.cricket-dot.hit-3 { background: #22c55e; }
-.active-segment { filter: drop-shadow(0 0 8px #fcd34d); }
+.hud-side.left {
+  left: 0;
+}
+.hud-side.right {
+  right: 0;
+}
+.hud-side.collapsed {
+  width: 60px;
+  opacity: 0.7;
+}
+.marks-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+.cricket-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: transparent;
+}
+.cricket-dot.hit-1,
+.cricket-dot.hit-2 {
+  background: #facc15;
+  border-color: #facc15;
+}
+.cricket-dot.hit-3 {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+.active-segment {
+  filter: drop-shadow(0 0 8px #fcd34d);
+}
